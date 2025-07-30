@@ -43,10 +43,7 @@ let isValidProducer (p:ResponseProducer) (consumer:Consumer) (allowGetProducers:
             | OperationMethod.Patch ->
                 consumerMethod <> OperationMethod.Put &&
                 consumerMethod <> OperationMethod.Post
-            | OperationMethod.Get ->
-                consumerMethod <> OperationMethod.Put &&
-                consumerMethod <> OperationMethod.Post &&
-                consumerMethod <> OperationMethod.Patch
+            | OperationMethod.Get -> true
             | _ -> false
     else
         not (producerEndpoint.StartsWith(consumerEndpoint))
