@@ -4,7 +4,7 @@
 module Restler.Telemetry
 
 //Instrumentation key is from app insights resource in Azure Portal
-let [<Literal>] InstrumentationKey = "6a4d265f-98cd-432f-bfb9-18ced4cd43a9"
+let [<Literal>] InstrumentationKey = ""
 
 // Note: telemetry is flushed synchronously after top-level started and finished events.
 // There are very few such events sent, and this allows consistently getting started
