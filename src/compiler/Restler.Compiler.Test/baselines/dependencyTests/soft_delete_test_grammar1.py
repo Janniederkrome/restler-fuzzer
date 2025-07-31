@@ -23,7 +23,7 @@ def parse_appappIdput(data, **kwargs):
     if data:
 
         try:
-            data = json.loads(data)
+            data = json.loads(data, strict=False)
         except Exception as error:
             raise ResponseParsingException("Exception parsing response, data was not valid json: {}".format(error))
         pass
