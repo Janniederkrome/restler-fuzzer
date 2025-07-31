@@ -378,9 +378,14 @@ let findProducerWithResourceName
                                                                   OperationMethod.Post
                                                                   OperationMethod.Get ])
 
+                let allowGetProducers =
+                    match a.producerId.method with
+                    | OperationMethod.Get -> true
+                    | _ -> false
+
                 let annotationResponseProducer =
                     responseProducersWithMatchingResourceIds
-                    |> Seq.filter (fun rp -> isValidProducer rp consumer true (*override allowGetProducers*))
+                    |> Seq.filter (fun rp -> isValidProducer rp consumer allowGetProducers)
                     |> Seq.filter (fun p ->
                                             // Match on the path, if it exists,
                                             // otherwise match on the ID only
