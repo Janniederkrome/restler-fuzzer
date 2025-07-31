@@ -961,7 +961,7 @@ let getResponseParsers (requests: Request list) =
         let getParseBodyStatement() =
             """
         try:
-            data = json.loads(data)
+            data = json.loads(data, strict=False)
         except Exception as error:
             raise ResponseParsingException("Exception parsing response, data was not valid json: {}".format(error))"""
 
