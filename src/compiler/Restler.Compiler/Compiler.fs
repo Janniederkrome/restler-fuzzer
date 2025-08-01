@@ -564,7 +564,7 @@ module private Parameters =
         let bodyName, bodySchema =
             if not (isNull swaggerMethodDefinition.RequestBody) &&
                 not (isNull swaggerMethodDefinition.RequestBody.Content) then
-                let allowedTypes = [ "application/json"; "*/*"; "text/plain" ]
+                let allowedTypes = [ "application/json"; "*/*"; "text/plain"; "application/pdf"; "application/octet-stream" ]
                 let content =
                     swaggerMethodDefinition.RequestBody.Content
                     |> Seq.tryFind (fun x -> allowedTypes |> List.contains x.Key)
