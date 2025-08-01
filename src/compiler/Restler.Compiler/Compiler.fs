@@ -564,8 +564,11 @@ module private Parameters =
         let bodyName, bodySchema =
             if not (isNull swaggerMethodDefinition.RequestBody) &&
                 not (isNull swaggerMethodDefinition.RequestBody.Content) then
+                let allowedTypes = [ "application/json"; "*/*"; "text/plain" ]
                 let content =
-                    swaggerMethodDefinition.RequestBody.Content |> Seq.tryFind (fun x -> x.Key = "application/json" || x.Key = "*/*")
+                    swaggerMethodDefinition.RequestBody.Content
+                    |> Seq.tryFind (fun x -> allowedTypes |> List.contains x.Key)
+                    |> Option.orElseWith (fun () -> swaggerMethodDefinition.RequestBody.Content |> Seq.tryHead)
                 // If the schema is null, issue a warning.
                 match content with
                 | Some c ->
