@@ -481,7 +481,15 @@ module DynamicObjectNaming =
             zipped |> Seq.takeWhile (fun (x,y) -> x = y) |> Seq.map (fun (x,_) -> x) |> Seq.toList,
             zipped |> Seq.skipWhile (fun (x,y) -> x = y) |> Seq.toList |> List.unzip
 
-        ["__ordering__"] @ commonEndpointParts @ (fst distinctEndpointParts) @ (snd distinctEndpointParts)
+        let methodSuffix = sourceRequestId.method.ToString().ToUpper()
+        let lastPathPart = 
+            sourceEndpointParts 
+            |> Array.filter (fun p -> not (System.String.IsNullOrWhiteSpace p)) 
+            |> Array.tryLast 
+            |> Option.defaultValue "unknown"
+        let uniqueHint = $"{methodSuffix}_{lastPathPart}"
+
+        ["__ordering__"] @ commonEndpointParts @ (fst distinctEndpointParts) @ (snd distinctEndpointParts) @ [uniqueHint]
         |> String.concat delimiter
 
     let generateDynamicObjectVariableName (requestId:RequestId) (accessPath:AccessPath option) delimiter =
