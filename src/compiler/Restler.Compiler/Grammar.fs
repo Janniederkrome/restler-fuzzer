@@ -486,6 +486,8 @@ module DynamicObjectNaming =
             sourceRequestId.endpoint.Split('/')
             |> Array.rev
             |> Array.find (fun part -> not (System.String.IsNullOrWhiteSpace part) && not (part.StartsWith("{") && part.EndsWith("}")))
+            |> fun part -> part.Replace("-", "_")
+
         let uniqueHint = sprintf "%s_%s" methodSuffix lastPathPart
 
         ["__ordering__"] @ commonEndpointParts @ (fst distinctEndpointParts) @ (snd distinctEndpointParts) @ [uniqueHint]
