@@ -482,11 +482,10 @@ module DynamicObjectNaming =
             zipped |> Seq.skipWhile (fun (x,y) -> x = y) |> Seq.toList |> List.unzip
 
         let methodSuffix = sourceRequestId.method.ToString().ToUpper()
-        let lastPathPart = 
-            sourceEndpointParts 
-            |> Array.filter (fun p -> not (System.String.IsNullOrWhiteSpace p)) 
-            |> Array.tryLast 
-            |> Option.defaultValue "unknown"
+        let lastPathPart =
+            sourceRequestId.endpoint.Split('/')
+            |> Array.rev
+            |> Array.find (fun part -> not (System.String.IsNullOrWhiteSpace part) && not (part.StartsWith("{") && part.EndsWith("}")))
         let uniqueHint = sprintf "%s_%s" methodSuffix lastPathPart
 
         ["__ordering__"] @ commonEndpointParts @ (fst distinctEndpointParts) @ (snd distinctEndpointParts) @ [uniqueHint]
