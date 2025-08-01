@@ -487,7 +487,7 @@ module DynamicObjectNaming =
             |> Array.filter (fun p -> not (System.String.IsNullOrWhiteSpace p)) 
             |> Array.tryLast 
             |> Option.defaultValue "unknown"
-        let uniqueHint = $"{methodSuffix}_{lastPathPart}"
+        let uniqueHint = sprintf "%s_%s" methodSuffix lastPathPart
 
         ["__ordering__"] @ commonEndpointParts @ (fst distinctEndpointParts) @ (snd distinctEndpointParts) @ [uniqueHint]
         |> String.concat delimiter
