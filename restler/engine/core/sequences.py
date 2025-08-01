@@ -413,7 +413,7 @@ class Sequence(object):
                                       producer_timing_delay, req_async_wait, replay_blocks=replay_blocks)
         SequenceTracker.clear_request_trace(combination_id=self.combination_id)
 
-        timing_delay = producer_timing_delay if request.is_resource_generator() else 0
+        timing_delay = producer_timing_delay # if request.is_resource_generator() else 0
 
         return response, resource_error, parser_threw_exception, timing_delay, response_datetime_str, timestamp_micro
 
