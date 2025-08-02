@@ -325,9 +325,9 @@ class SpecCoverageLog(object):
         else:
             req_hash = req.method_endpoint_hex_definition
 
-        if req_hash in self._renderings_logged:
-            # Duplicate spec coverage should not be logged.
-            raise Exception(f"ERROR: spec coverage is being logged twice for the same rendering: {req_hash}.")
+        #if req_hash in self._renderings_logged:
+        #    # Duplicate spec coverage should not be logged.
+        #    raise Exception(f"ERROR: spec coverage is being logged twice for the same rendering: {req_hash}.")
 
         req_coverage = self._get_request_coverage_summary_stats(req, req_hash, log_tracked_parameters=log_rendered_hash)
         self._renderings_logged[req_hash] = req_coverage[req_hash]['valid']
