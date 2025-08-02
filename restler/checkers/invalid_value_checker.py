@@ -266,7 +266,7 @@ class InvalidValueChecker(CheckerBase):
         if self._max_invalid_combinations is None:
             param_budget = 100
         else:
-            param_budget = max(1, self._max_invalid_combinations / num_fuzzable_blocks)
+            param_budget = self._max_invalid_combinations
 
         self._checker_log.checker_print(f"Budget: {param_budget} values per parameter.")
 
