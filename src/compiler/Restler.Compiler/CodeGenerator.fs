@@ -961,6 +961,8 @@ let getResponseParsers (requests: Request list) =
         let getParseBodyStatement() =
             """
         try:
+            import re
+            data = re.sub(r'\r\n[0-9a-fA-F]+\r\n', '', data)
             data = json.loads(data, strict=False)
         except Exception as error:
             raise ResponseParsingException("Exception parsing response, data was not valid json: {}".format(error))"""
